@@ -81,17 +81,20 @@ flowchart TD
 
 ## 🚀 Inicio Rápido
 
-### Método 1: Lanzador de 1 Clic (Recomendado) 🖱️
-1. Descarga o clona el repositorio.
-2. Haz doble clic sobre **`Iniciar-WinOptimizador.bat`**.
-3. Acepta los permisos de Administrador en el diálogo de Windows (UAC) ¡y listo!
+### Método 1: Interfaz Gráfica (GUI con Windows Forms) 🖱️✨
+1. Haz doble clic sobre **`Iniciar-WinOptimizador.bat`**.
+2. Acepta los permisos de Administrador en el diálogo de Windows (UAC).
+3. ¡Se abrirá la aplicación visual con pestañas organizadas, botones de acción y consola de ejecución en tiempo real!
 
-### Método 2: Desde Consola PowerShell 💻
-Abre PowerShell como Administrador en la carpeta del proyecto y ejecuta:
-
+También puedes iniciar la GUI directamente desde PowerShell:
 ```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\winoptimizador.ps1
+powershell -ExecutionPolicy Bypass -File .\winoptimizador_gui.ps1
+```
+
+### Método 2: Modo Consola Clásico (CLI) 💻
+Si prefieres el menú interactivo por texto en terminal:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\winoptimizador.ps1
 ```
 
 ---
@@ -130,8 +133,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```text
 proyecto-mantenimiento-de-os/
 │
-├── 📄 Iniciar-WinOptimizador.bat   # Lanzador directo con elevación UAC en 1 clic
-├── 📜 winoptimizador.ps1          # Núcleo del script con las 22 herramientas en PowerShell
+├── 🚀 Iniciar-WinOptimizador.bat   # Lanzador directo en 1 clic (abre la GUI con privilegios)
+├── 🖥️ winoptimizador_gui.ps1      # Interfaz gráfica moderna (Windows Forms) con las 22 herramientas
+├── 📜 winoptimizador.ps1          # Versión clásica interactiva por consola CLI
 │
 ├── 📂 docs/
 │   └── 📘 ARQUITECTURA.md         # Documentación técnica extendida y justificación de módulos
