@@ -1,0 +1,16 @@
+# Windows & Temporal Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Project Generated / Log Files
+*.log
+InfoSistema.txt
+*.tmp
+
+# Editor & IDE files
+.vscode/
+.idea/
+*.swp
+*~
