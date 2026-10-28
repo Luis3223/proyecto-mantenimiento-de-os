@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Win-Optimizador Pro - Suite de Mantenimiento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h2>WinOptimizador</h2>
+          <span class="version-tag">PRO v2.0</span>
+        </div>
+      </div>
+
+      <div class="system-status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-label">Modo Administrador Activo</span>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-title">CATEGORÍAS</div>
+        <button class="nav-item active" data-cat="all">
+          <span class="nav-icon">✨</span>
+          <span class="nav-text">Todos los Módulos</span>
+          <span class="nav-badge" id="count-all">23</span>
+        </button>
+        <button class="nav-item" data-cat="limpieza">
+          <span class="nav-icon">🧹</span>
+          <span class="nav-text">Limpieza y Espacio</span>
+          <span class="nav-badge">9</span>
+        </button>
+        <button class="nav-item" data-cat="red">
+          <span class="nav-icon">🌐</span>
+          <span class="nav-text">Red e Internet</span>
+          <span class="nav-badge">3</span>
+        </button>
+        <button class="nav-item" data-cat="diag">
+          <span class="nav-icon">🩺</span>
+          <span class="nav-text">Salud y Reparación</span>
+          <span class="nav-badge">4</span>
+        </button>
+        <button class="nav-item" data-cat="sistema">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-text">Sistema y Privacidad</span>
+          <span class="nav-badge">6</span>
+        </button>
+        <button class="nav-item highlight" data-cat="auto">
+          <span class="nav-icon">🚀</span>
+          <span class="nav-text">Modo 1-Clic (Express)</span>
+          <span class="nav-badge star">★</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="computer-info">
+          <span class="comp-icon">💻</span>
+          <div class="comp-details">
+            <span class="comp-name" id="pc-name">PC: Detectando...</span>
+            <span class="comp-user" id="pc-user">Usuario: ...</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-content">
+      
+      <!-- TOP BAR CON TELEMETRÍA EN VIVO -->
+      <header class="topbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Buscar herramienta (ej: temporales, dns, sfc, ram, disco)...">
+          <button id="clear-search" class="clear-btn" style="display:none;">✕</button>
+        </div>
+
+        <div class="telemetry-bar">
+          <!-- Widget Disco C: -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon disk-icon">💾</div>
+            <div class="telemetry-info">
+              <span class="telemetry-title">Disco Local (C:)</span>
+              <span class="telemetry-val" id="disk-text">Calculando...</span>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="disk-bar" style="width: 50%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Widget RAM -->
+          <div class="telemetry-card">
+            <div class="telemetry-icon ram-icon">🧠</div>
+            <div class="telemetry-info">
+              <span class="telemetry-title">Memoria RAM</span>
+              <span class="telemetry-val" id="ram-text">Calculando...</span>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill ram-fill" id="ram-bar" style="width: 50%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de refresco -->
+          <button class="btn-refresh" id="btn-refresh" title="Actualizar métricas">🔄</button>
+        </div>
+      </header>
+
+      <!-- VISTA DINÁMICA DE MÓDULOS -->
+      <section class="modules-container">
+        
+        <!-- HERO CARD (MODO 1-CLIC) -->
+        <div class="hero-card" id="hero-banner">
+          <div class="hero-content">
+            <div class="hero-badge">RECOMENDADO PARA CUALQUIER USUARIO</div>
+            <h2 class="hero-title">⚡ Mantenimiento Total Automático</h2>
+            <p class="hero-desc">
+              Optimiza tu equipo en un solo clic. Realiza automáticamente la purga de temporales, vaciado de papelera de reciclaje y renovación de la caché DNS para dejar tu Windows rápido y limpio.
+            </p>
+            <div class="hero-features">
+              <span class="feature-tag">✔ Sin riesgos</span>
+              <span class="feature-tag">✔ Limpieza profunda</span>
+              <span class="feature-tag">✔ 100% Automático</span>
+            </div>
+            <button class="btn-hero" id="btn-run-hero">
+              <span class="btn-icon">🚀</span>
+              <span class="btn-text">Iniciar Optimización Completa (1-Clic)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ENCABEZADO DE SECCIÓN -->
+        <div class="section-header">
+          <div>
+            <h1 class="section-title" id="section-title">Todos los Módulos de Mantenimiento</h1>
+            <p class="section-desc" id="section-desc">Selecciona cualquier herramienta para ejecutarla de forma segura.</p>
+          </div>
+          <span class="results-counter" id="results-counter">Mostrando 23 herramientas</span>
+        </div>
+
+        <!-- GRILLA DE TARJETAS -->
+        <div class="cards-grid" id="cards-grid">
+          <!-- Se inyectan dinámicamente con JavaScript -->
+        </div>
+
+      </section>
+
+      <!-- CONSOLA INFERIOR DE REGISTRO EN TIEMPO REAL -->
+      <footer class="console-drawer" id="console-drawer">
+        <div class="console-header">
+          <div class="console-title">
+            <span class="console-dot"></span>
+            <span>Terminal de Ejecución y Diagnóstico en Vivo</span>
+            <span class="task-badge" id="current-task-badge">En espera</span>
+          </div>
+          <div class="console-actions">
+            <button class="console-btn" id="btn-copy-log" title="Copiar registro">📋 Copiar</button>
+            <button class="console-btn" id="btn-clear-log" title="Limpiar registro">🗑️ Limpiar</button>
+            <button class="console-btn" id="btn-toggle-console" title="Minimizar/Expandir">🔽</button>
+          </div>
+        </div>
+
+        <div class="console-loading-bar" id="console-loader"></div>
+        <div class="console-body" id="console-output">
+          <div class="log-line log-info">[SISTEMA] Win-Optimizador Pro v2.0 iniciado correctamente.</div>
+          <div class="log-line log-success">[ESTADO] Privilegios de Administrador verificados. Selecciona una herramienta para comenzar.</div>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL DE DIÁLOGO PARA OPCIÓN 18 (HIBERNACIÓN) -->
+  <div class="modal-overlay" id="modal-hibernacion">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-icon">⚡</span>
+        <h3>Gestión de Hibernación (hiberfil.sys)</h3>
+      </div>
+      <p class="modal-body">
+        ¿Deseas activar o desactivar la hibernación en tu sistema?<br><br>
+        • <strong>Activar:</strong> Permite utilizar el Inicio Rápido de Windows.<br>
+        • <strong>Desactivar:</strong> Elimina el archivo <code>hiberfil.sys</code> y libera <strong>varios Gigabytes de espacio</strong> en tu disco C:.
+      </p>
+      <div class="modal-actions">
+        <button class="btn-modal btn-success" id="btn-hib-on">Activar Hibernación</button>
+        <button class="btn-modal btn-amber" id="btn-hib-off">Desactivar y Liberar Espacio</button>
+        <button class="btn-modal btn-cancel" id="btn-hib-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ANALIZADOR Y LIBERADOR DE ARCHIVOS PESADOS (OPCIÓN 23) -->
+  <div class="modal-overlay" id="modal-archivos-pesados">
+    <div class="modal-box modal-large">
+      <div class="modal-header">
+        <div class="modal-header-icon">🔍</div>
+        <div class="modal-header-text">
+          <h3>Analizador y Liberador de Archivos Pesados</h3>
+          <p class="modal-subtitle">Detecta qué archivos consumen más espacio en tu disco. Selecciona los que deseas eliminar y libera almacenamiento al instante.</p>
+        </div>
+        <button class="modal-close-btn" id="btn-close-scanner" title="Cerrar">✕</button>
+      </div>
+
+      <!-- Barra de herramientas del modal -->
+      <div class="scanner-toolbar">
+        <div class="toolbar-left">
+          <label class="custom-checkbox-container select-all-label">
+            <input type="checkbox" id="check-select-all">
+            <span class="checkmark"></span>
+            <span class="toolbar-label">Seleccionar Todos</span>
+          </label>
+          <span class="selection-pill" id="selection-counter">0 seleccionados (0 MB)</span>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn-tool-secondary" id="btn-rescan-files" title="Volver a analizar">
+            <span class="tool-icon">🔄</span>
+            <span>Re-escanear</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Estado de carga / escaneando -->
+      <div class="scanner-loading" id="scanner-loading">
+        <div class="scanner-spinner"></div>
+        <p class="scanner-loading-text">Analizando Descargas, Videos, Escritorio, Documentos y Temporales...</p>
+        <span class="scanner-loading-sub">Localizando archivos mayores a 10 MB</span>
+      </div>
+
+      <!-- Lista desplazable de archivos encontrados -->
+      <div class="files-scroll-list" id="files-scroll-list" style="display:none;">
+        <!-- Se inyectan dinámicamente con JavaScript -->
+      </div>
+
+      <!-- Estado vacío si no hay archivos pesados -->
+      <div class="scanner-empty" id="scanner-empty" style="display:none;">
+        <span class="empty-icon">🎉</span>
+        <h4>¡Tu disco está en excelente estado!</h4>
+        <p>No se encontraron archivos mayores a 10 MB en las carpetas comunes de usuario.</p>
+      </div>
+
+      <!-- Banner de reporte de espacio liberado -->
+      <div class="freed-report-banner" id="freed-report-banner" style="display:none;">
+        <span class="banner-icon">🎉</span>
+        <div class="banner-content">
+          <strong id="freed-report-title">¡Espacio liberado con éxito!</strong>
+          <span id="freed-report-desc">Se eliminaron 0 archivos y se recuperaron 0 MB en tu disco C:.</span>
+        </div>
+      </div>
+
+      <!-- Footer de acciones -->
+      <div class="modal-footer">
+        <button class="btn-modal btn-cancel" id="btn-scanner-cancel">Cerrar</button>
+        <button class="btn-modal btn-danger" id="btn-delete-selected" disabled>
+          <span class="btn-icon">🗑️</span>
+          <span id="btn-delete-label">Eliminar Seleccionados</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

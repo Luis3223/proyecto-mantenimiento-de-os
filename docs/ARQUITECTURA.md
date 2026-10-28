@@ -1,10 +1,31 @@
 # 📘 Arquitectura Técnica y Manual de Mantenimiento
 
-Este documento detalla el funcionamiento interno de cada módulo implementado en **Win-Optimizador Pro** (`winoptimizador.ps1`).
+Este documento detalla el funcionamiento interno de cada módulo implementado en **Win-Optimizador Pro** y la estrategia de **Doble Interfaz Adaptativa** (`winoptimizador.ps1` y `winoptimizador_gui.ps1`).
 
 ---
 
-## 1. Mecanismo de Auto-Elevación (UAC)
+## 1. Arquitectura de Doble Interfaz (Técnico vs Usuario)
+
+Para garantizar accesibilidad tanto a personal IT especializado como a usuarios convencionales, la suite desacopla el motor de ejecución en dos capas de presentación:
+
+1. **Capa TUI (Terminal User Interface - `winoptimizador.ps1`)**:
+   - Orientada a administradores de sistemas y entornos de diagnóstico rápido.
+   - Bucle interactivo sin recarga completa mediante `$Host.UI.RawUI.ReadKey` y posicionamiento de cursor.
+   - Consumo de recursos mínimo y soporte para 100% navegación con teclado (`↑/↓`, `←/→`, `Tab`, `Enter`).
+   - Monitor de telemetría superior en vivo (UAC, Disco C: y RAM física).
+
+2. **Capa GUI (Interfaz Gráfica Fluent - `winoptimizador_gui.ps1`)**:
+   - Orientada a cualquier usuario final sin conocimientos de comandos.
+   - Construida sobre `System.Windows.Forms` y `System.Drawing` con diseño asíncrono y paleta Fluent Dark (`#0B132B`, `#0F172A`, `#1E293B`).
+   - Navegación lateral por categorías (Sidebar) con tarjetas explicativas que evitan el desbordamiento o corte de botones.
+   - "Modo 1-Clic" asistido para mantenimiento rápido desatendido.
+
+3. **Capa de Despliegue Remoto (`run.ps1`)**:
+   - Permite ejecución en 1 línea (`irm ... | iex`) descargando los componentes en memoria temporal (`$env:TEMP\WinOptimizadorPro`) sin requerir instalación previa.
+
+---
+
+## 2. Mecanismo de Auto-Elevación (UAC)
 
 El script implementa una verificación inicial de seguridad en tiempo de ejecución:
 
@@ -24,7 +45,7 @@ if (-not $isAdmin) {
 ## 2. Clasificación de Módulos
 
 ```
-                   ┌── [1-5] Limpieza de Temporales & Logs
+                   ┌── [1-5, 23] Limpieza de Temporales, Logs y Archivos Pesados
                    ├── [6-8] Optimización y Organización
                    ├── [9-10] Pila de Red TCP/IP y DNS
 WinOptimizador ────┼── [11-14] Reparación DISM / SFC / CHKDSK
@@ -36,6 +57,7 @@ WinOptimizador ────┼── [11-14] Reparación DISM / SFC / CHKDSK
 - **Módulo 1 (`Temp / Prefetch`)**: Libera espacio ocupado por archivos temporales de usuario y cachés de pre-carga del sistema.
 - **Módulo 3 (`SoftwareDistribution`)**: Detiene de forma segura el servicio `wuauserv` para vaciar instaladores descargados pendientes que puedan estar corruptos.
 - **Módulos 7 y 8 (`Organización Inteligente`)**: Automatizan la clasificación de carpetas críticas agrupando los ficheros en carpetas según su extensión `.pdf`, `.exe`, `.docx`, etc.
+- **Módulo 23 (`Archivos Pesados`)**: Escanea archivos que más espacio ocupan en disco (>10MB), permite selección granular de cuáles borrar y calcula de forma byte-exacta el espacio liberado en MB/GB con telemetría en vivo.
 
 ### 🌐 Conectividad y Red
 - **Módulo 9 (`DNS Flush & Renew`)**: Limpia el resolver cache local y fuerza la renegociación de direcciones IP ante el servidor DHCP.
